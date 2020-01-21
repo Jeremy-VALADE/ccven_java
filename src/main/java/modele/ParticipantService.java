@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.test;
+package modele;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,5 +29,12 @@ public class ParticipantService {
         session.save(participant);
         session.getTransaction().commit();
         session.close();        
+    }
+    
+    public List<Participant> getAllParticipants() {
+        Session session = this.sessionFactory.openSession();
+        List<Participant> result = session.createQuery("from Participant").list();
+        session.close();
+        return result;
     }
 }
