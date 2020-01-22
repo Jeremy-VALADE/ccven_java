@@ -5,12 +5,14 @@
  */
 package modele;
 
+import service.ParticipantService;
 import java.io.File;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.mapping.MetadataSource;
+import service.OrganisateurService;
 /**
  *
  * @author jerev
@@ -22,11 +24,16 @@ public class Main {
      */
     public static void main(String[] args) {
         SessionFactory s = createSessionFactory();
-        ParticipantService p = new ParticipantService(s);
-        p.insertParticipant(new Participant("test", "toto","t@gmail.com","2018-05-05","Terre","AB"));
-        p.insertParticipant(new Participant("test", "toto","t@gmail.com","2018-05-05","Terre","AB"));
-        for (Participant e : p.getAllParticipants())
-            System.out.println(e);
+        //ParticipantService p = new ParticipantService(s);
+       // p.insertParticipant(new Participant("test", "toto","t@gmail.com","2018-05-05","Terre","AB"));
+        //p.insertParticipant(new Participant("test", "toto","t@gmail.com","2018-05-05","Terre","AB"));
+       // for (Participant e : p.getAllParticipants())
+         //   System.out.println(e);
+         
+         Organisateur o = new Organisateur("Test","lance flamme");
+         OrganisateurService l = new OrganisateurService(s);
+         l.insertOrganisateur(o);
+         System.out.println(l.getPassword("one"));
         
     }
     
