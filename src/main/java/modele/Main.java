@@ -37,7 +37,7 @@ public class Main {
         
     }
     
-    private static SessionFactory createSessionFactory(){
+    public static SessionFactory createSessionFactory(){
         final StandardServiceRegistry registry =  new StandardServiceRegistryBuilder()
                 .configure(new File("hibernate.cfg.xml")).build();
         try {

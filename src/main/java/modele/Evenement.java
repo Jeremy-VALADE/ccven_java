@@ -6,7 +6,9 @@
 package modele;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -16,19 +18,23 @@ import javax.persistence.*;
 @Table(name = "evenement")
 public class Evenement {
     @Id
-    @GeneratedValue(generator = "increment")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int num_even;
     private String intitule, theme, description;
     private int duree, nb_part_max;
     private Date date_debut;
     @ManyToOne
-    private Organisateur organisateur; 
+    private Organisateur organisateur;
     @ManyToOne
     private Type_Evenement type;
 
-    public Evenement() {}
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "evenements")
+    private List<Participant> participants;
 
-    public Evenement(int num_even, String intitule, String theme, String description, int duree, int nb_part_max, Date date_debut, Organisateur organisateur, Type_Evenement type) {
+    public Evenement() {
+    }
+
+    public Evenement(int num_even, String intitule, String theme, String description, int duree, int nb_part_max, Date date_debut, Organisateur organisateur, Type_Evenement type, List<Participant> participants) {
         this.num_even = num_even;
         this.intitule = intitule;
         this.theme = theme;
@@ -38,7 +44,7 @@ public class Evenement {
         this.date_debut = date_debut;
         this.organisateur = organisateur;
         this.type = type;
+        this.participants = participants;
     }
 
-    
 }

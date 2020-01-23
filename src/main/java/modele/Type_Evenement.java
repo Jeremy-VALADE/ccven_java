@@ -6,6 +6,7 @@
 package modele;
 
 import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @Table
 public class Type_Evenement {
     @Id
-    @GeneratedValue(generator = "increment")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int num_type_even;
     private String intitule;
 
