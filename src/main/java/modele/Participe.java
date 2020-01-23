@@ -11,14 +11,26 @@ import javax.persistence.*;
  *
  * @author jerev
  */
-
-@Entity 
-@Table(name="participe")
+@Entity
+@Table(name = "participe")
 public class Participe {
-    @Id
-    @ManyToMany    
+
+    @EmbeddedId
+    private Participe participe = new Participe();
+    
+    @ManyToOne
+    @MapsId("participantId")
     private Participant participant;
-    @Id
-    @ManyToMany
-    private Evenement even;
+    
+    @ManyToOne
+    @MapsId("evenementId")
+    private Evenement evenement;
+ 
+    public Participe() { }
+
+    public Participe(Participant participant, Evenement evenement) {        
+        this.participant = participant;
+        this.evenement = evenement;
+    }  
+    
 }

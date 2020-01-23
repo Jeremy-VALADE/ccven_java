@@ -17,7 +17,7 @@
         <mapping class="modele.Participant" />
         <mapping class="modele.Organisateur" />
         <mapping class="modele.Evenement" />
-        <mapping class="modele.Type_Evenement" />
-        <mapping class="modele.Participe" />
+        <mapping class="modele.Type_Evenement" />       
+        <mapping class="modele.Participe" />   
     </session-factory>
 </hibernate-configuration>
