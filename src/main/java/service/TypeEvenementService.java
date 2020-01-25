@@ -23,6 +23,15 @@ public class TypeEvenementService {
         this.sessionFactory = Objects.requireNonNull(session);
     }
 
+    public void insertTypeEvenement(Type_Evenement typeEven) {
+        Objects.requireNonNull(typeEven);
+        Session session = this.sessionFactory.openSession();
+        session.beginTransaction();
+        session.save(typeEven);
+        session.getTransaction().commit();
+        session.close();
+    }
+    
     public List<Type_Evenement> getAllEvenements() {
         Session session = this.sessionFactory.openSession();
         List<Type_Evenement> result = session.createQuery("from type_evenement").list();

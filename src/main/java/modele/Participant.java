@@ -5,6 +5,7 @@
  */
 package modele;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -38,15 +39,18 @@ public class Participant {
     public Participant() {
     }
 
-    public Participant(int num_pers, String nom, String prenom, String email, String date_naiss, String organisations, String observations, List<Evenement> evenements) {
-        this.num_pers = num_pers;
+    public Participant(String nom, String prenom, String email, String date_naiss, String organisations, String observations) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.date_naiss = date_naiss;
         this.organisations = organisations;
         this.observations = observations;
-        this.evenements = evenements;
+        this.evenements = new ArrayList<>();
     }
-
+    
+    public void setEvenements(Evenement unEvenement){
+        evenements.add(unEvenement);
+    }
+    
 }

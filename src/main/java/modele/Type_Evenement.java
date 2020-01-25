@@ -22,8 +22,7 @@ public class Type_Evenement {
 
     public Type_Evenement() {}
 
-    public Type_Evenement(int num_type_even, String nom) {
-        this.num_type_even = num_type_even;
+    public Type_Evenement(String nom) {
         this.intitule = nom;
     }
 
