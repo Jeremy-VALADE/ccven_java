@@ -5,32 +5,35 @@
  */
 package modele;
 
+import java.util.List;
 import javax.persistence.*;
 
 /**
  *
  * @author jerev
  */
-@Entity
+@Embeddable
 @Table(name = "participe")
 public class Participe {
-
-    @EmbeddedId
-    private Participe participe = new Participe();
     
-    @ManyToOne
-    @MapsId("participantId")
-    private Participant participant;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "Participant", joinColumns = {
+        @JoinColumn(name = "num_pers")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "num_pers")
+            })
+    private Participant unParticipant;
     
-    @ManyToOne
-    @MapsId("evenementId")
-    private Evenement evenement;
- 
+    
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "Evenement", joinColumns = {
+        @JoinColumn(name = "num_even")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "num_even")
+            })
+    private Evenement unEvenement;
+    
     public Participe() { }
 
-    public Participe(Participant participant, Evenement evenement) {        
-        this.participant = participant;
-        this.evenement = evenement;
-    }  
-    
+  
 }

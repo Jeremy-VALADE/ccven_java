@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -26,18 +27,27 @@ public class Evenement {
     private String intitule, theme, description;
     private int duree, nb_part_max;
     private Timestamp date_debut;
-    @ManyToOne
+    @ManyToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
     private Organisateur organisateur;
-    @ManyToOne
+    @ManyToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
     private Type_Evenement type;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "evenements")
-    private List<Participant> participants;
+    @ManyToMany(           
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    private Set<Participant> participants;
 
     public Evenement() {
     }
 
-    public Evenement(String intitule, String theme, String description, int duree, int nb_part_max, Timestamp date_debut, Organisateur organisateur, Type_Evenement type, List<Participant> participants) {
+    public Evenement(String intitule, String theme, String description, int duree, int nb_part_max, Timestamp date_debut, Organisateur organisateur, Type_Evenement type, Set<Participant> participants) {
         this.num_even = num_even;
         this.intitule = intitule;
         this.theme = theme;
@@ -86,10 +96,10 @@ public class Evenement {
         return type;
     }
 
-    public List<Participant> getParticipants() {
+    public Set<Participant> getParticipants() {
         return participants;
     }
-    
+
     public void addParticipants(Participant unParticipant) {
         participants.add(unParticipant);
     }
@@ -118,10 +128,6 @@ public class Evenement {
         this.nb_part_max = nb_part_max;
     }
 
-    public void setDate_debut(Date date_debut) {
-        this.date_debut = date_debut;
-    }
-
     public void setOrganisateur(Organisateur organisateur) {
         this.organisateur = organisateur;
     }
@@ -129,5 +135,10 @@ public class Evenement {
     public void setType(Type_Evenement type) {
         this.type = type;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Evenement{" + "num_even=" + num_even + ", intitule=" + intitule + ", theme=" + theme + ", description=" + description + ", duree=" + duree + ", nb_part_max=" + nb_part_max + ", date_debut=" + date_debut + ", organisateur=" + organisateur + ", type=" + type + ", participants=" + participants + '}';
+    }
+
 }

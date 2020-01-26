@@ -24,11 +24,11 @@ public class Main {
      */
     public static void main(String[] args) {
         SessionFactory s = createSessionFactory();
-        //ParticipantService p = new ParticipantService(s);
-       // p.insertParticipant(new Participant("test", "toto","t@gmail.com","2018-05-05","Terre","AB"));
-        //p.insertParticipant(new Participant("test", "toto","t@gmail.com","2018-05-05","Terre","AB"));
-       // for (Participant e : p.getAllParticipants())
-         //   System.out.println(e);
+        ParticipantService p = new ParticipantService(s);
+        p.insertParticipant(new Participant("test", "toto","t@gmail.com","2018-05-05","Terre","AB",null));
+        p.insertParticipant(new Participant("test", "toto","t@gmail.com","2018-05-05","Terre","AB",null));
+       //for (Participant e : p.getAllParticipants())
+        //   System.out.println(e);
          
          Organisateur o = new Organisateur("Test","lance flamme");
          OrganisateurService l = new OrganisateurService(s);

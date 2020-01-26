@@ -9,15 +9,17 @@ import java.util.List;
 import java.util.Objects;
 import modele.Evenement;
 import modele.Type_Evenement;
+import modele.Participe;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import java.util.Date;
+import modele.Participant;
+
 /**
  *
  * @author jerev
  */
-
 
 public class EvenementService {
 
@@ -36,13 +38,21 @@ public class EvenementService {
         session.close();
     }
 
-    public List<Evenement> getAllEvenements() {
+    public Evenement getAllEvenement() {
         Session session = this.sessionFactory.openSession();
-        List<Evenement> evenements = session.createQuery("from evenement").list();
+       Evenement evenements = (Evenement)session.get(Evenement.class, 2);
+       evenements.getNum_even();
         session.close();
         return evenements;
     }
-    
+
+    public List<Evenement> getAllEvenements() {
+        Session session = this.sessionFactory.openSession();
+        List<Evenement> evenements = session.createQuery("from Evenement").list();
+        session.close();
+        return evenements;
+    }
+
     public List<Evenement> getAllEvenements(String theme) {
         Session session = this.sessionFactory.openSession();
         Query evenements = session.createQuery("from evenement where theme = :theme");
@@ -51,8 +61,7 @@ public class EvenementService {
         session.close();
         return evens;
     }
-    
-    
+
     public List<Evenement> getAllEvenements(Type_Evenement type) {
         Session session = this.sessionFactory.openSession();
         Query evenements = session.createQuery("from evenement where type_even = :type");
@@ -61,7 +70,7 @@ public class EvenementService {
         session.close();
         return evens;
     }
-    
+
     public List<Evenement> getAllEvenements(Date dateDebut, Date dateFin) {
         Session session = this.sessionFactory.openSession();
         Query evenements = session.createQuery("from evenement where date_debut between :date1 and :date2");
@@ -71,5 +80,5 @@ public class EvenementService {
         session.close();
         return evens;
     }
-    
+
 }
