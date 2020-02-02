@@ -26,19 +26,24 @@ public class OrganisateurService {
         this.sessionFactory = Objects.requireNonNull(session);
     }
 
-    public void insertOrganisateur(Organisateur organisateur){
+    public void insertOrganisateur(Organisateur organisateur) {
         Objects.requireNonNull(organisateur);
         Session session = this.sessionFactory.openSession();
         session.beginTransaction();
         session.save(organisateur);
         session.getTransaction().commit();
-        session.close(); 
+        session.close();
     }
-    
-    public String getPassword(String login) {
+
+    public boolean getPassword(String login, String password) {
         Session session = this.sessionFactory.openSession();
-        Query password = session.createQuery("select password from Organisateur where login = :login");
-        password.setString("login", login);
-        return (String)password.uniqueResult();
+        Query passwordLogin = session.createQuery("select password from Organisateur where login = :login");
+        passwordLogin.setString("login", login);
+        //return (Organisateur)passwordLogin.uniqueResult();
+        if (password.equals((String) passwordLogin.uniqueResult()))            
+            return true;
+        else {
+            return false;
+        }
     }
 }

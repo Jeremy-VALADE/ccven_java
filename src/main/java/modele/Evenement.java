@@ -38,13 +38,34 @@ public class Evenement {
     )
     private Type_Evenement type;
 
-    @ManyToMany(           
-            cascade = CascadeType.ALL,
+    //@ManyToMany(targetEntity = Participant.class, fetch = FetchType.EAGER)
+    //@JoinTable(name = "participe")
+    @ManyToMany(
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE},
             fetch = FetchType.EAGER
     )
+    @JoinTable(name = "participe",
+            joinColumns = {
+                @JoinColumn(name = "num_even")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "num_pers")})
     private Set<Participant> participants;
 
     public Evenement() {
+    }
+
+    public Evenement(String intitule, String theme, String description, int duree, int nb_part_max, Timestamp date_debut, Organisateur organisateur, Type_Evenement type) {
+        this.num_even = num_even;
+        this.intitule = intitule;
+        this.theme = theme;
+        this.description = description;
+        this.duree = duree;
+        this.nb_part_max = nb_part_max;
+        this.date_debut = date_debut;
+        this.organisateur = organisateur;
+        this.type = type;       
     }
 
     public Evenement(String intitule, String theme, String description, int duree, int nb_part_max, Timestamp date_debut, Organisateur organisateur, Type_Evenement type, Set<Participant> participants) {
@@ -138,7 +159,7 @@ public class Evenement {
 
     @Override
     public String toString() {
-        return "Evenement{" + "num_even=" + num_even + ", intitule=" + intitule + ", theme=" + theme + ", description=" + description + ", duree=" + duree + ", nb_part_max=" + nb_part_max + ", date_debut=" + date_debut + ", organisateur=" + organisateur + ", type=" + type + ", participants=" + participants + '}';
+        return "Evenement{" + "num_even=" + num_even + ", intitule=" + intitule + ", theme=" + theme + ", description=" + description + ", duree=" + duree + ", nb_part_max=" + nb_part_max + ", date_debut=" + date_debut + ", organisateur=" + organisateur + ", type=" + type + ", participants=" + participants.toString() + '}';
     }
 
 }

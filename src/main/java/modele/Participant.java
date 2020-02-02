@@ -5,7 +5,10 @@
  */
 package modele;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
@@ -25,20 +28,26 @@ public class Participant {
     private String nom;
     private String prenom;
     private String email;
-    private String date_naiss;
+    private Date date_naiss;  
     private String organisations;
     private String observations;
-
-    @ManyToMany(
+    
+  /*  @ManyToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
+     @JoinTable(name = "participe",
+            joinColumns = {
+                @JoinColumn(name = "num_pers")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "num_even")})*/
+    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "participants")
     private Set<Evenement> evenements;
 
     public Participant() {
     }
 
-    public Participant(String nom, String prenom, String email, String date_naiss, String organisations, String observations,Set<Evenement> evenements) {
+    public Participant(String nom, String prenom, String email, Date date_naiss, String organisations, String observations,Set<Evenement> evenements) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -47,6 +56,16 @@ public class Participant {
         this.observations = observations;
         this.evenements = evenements;
     }
+
+    public Participant(String nom, String prenom, String email, String organisations, String observations, Date date_naiss) {
+         this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.date_naiss = date_naiss;
+        this.organisations = organisations;
+        this.observations = observations;
+        this.evenements = new HashSet<Evenement>();
+    }
     
     public void setEvenements(Evenement unEvenement){
         evenements.add(unEvenement);
@@ -54,7 +73,7 @@ public class Participant {
 
     @Override
     public String toString() {
-        return "Participant{" + "num_pers=" + num_pers + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", date_naiss=" + date_naiss + ", organisations=" + organisations + ", observations=" + observations + ", evenements=" + evenements + '}';
+        return "Participant{" + "num_pers=" + num_pers + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", date_naiss=" + date_naiss + ", organisations=" + organisations + ", observations=" + observations + ", evenements=" +  + '}';
     }
     
     

@@ -20,13 +20,13 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import service.EvenementService;
 import service.OrganisateurService;
-import static vue.EvenementInsertion.createSessionFactory;
+import static vue.EvenementInsertion2.createSessionFactory;
 
 /**
  *
  * @author jerev
  */
-public class EvenementInsertion {
+public class EvenementInsertion2 {
 
     public static void main(String[] args) {
         SessionFactory session = createSessionFactory();
@@ -51,8 +51,11 @@ public class EvenementInsertion {
         el.insertEvenement(e);        
         pa.insertParticipant(p1);
         
-        for (Evenement x: el.getAllEvenements())
-            System.out.println(x);
+        for (Participant q : pa.getAllParticipants()){
+            System.out.println(q);
+        }/*
+        for (Object x: e.getParticipants())
+            System.out.println(x);*/
     }
 
     public static SessionFactory createSessionFactory() {

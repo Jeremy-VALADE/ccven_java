@@ -5,22 +5,25 @@
  */
 package service;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.List;
 import java.util.Objects;
 import modele.Evenement;
 import modele.Type_Evenement;
-import modele.Participe;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modele.Participant;
 
 /**
  *
  * @author jerev
  */
-
 public class EvenementService {
 
     private final SessionFactory sessionFactory;
@@ -38,10 +41,27 @@ public class EvenementService {
         session.close();
     }
 
+    public void insertEvenement(String adresse) {
+        try {
+            String chemin = adresse;
+            BufferedReader fichier = new BufferedReader(new FileReader(chemin));
+            String chaine;
+            int i;
+            while ((chaine = fichier.readLine()) != null) {
+                String[] taChaine = chaine.split(";");
+                //this.insertEvnement(new Evenement(taChaine[0], taChaine[1], taChaine[2], taChaine[3], taChaine[4], taChaine[5], taChaine[6]));
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+
     public Evenement getAllEvenement() {
         Session session = this.sessionFactory.openSession();
-       Evenement evenements = (Evenement)session.get(Evenement.class, 2);
-       evenements.getNum_even();
+        Evenement evenements = (Evenement) session.get(Evenement.class,
+                1);
+        evenements.getNum_even();
         session.close();
         return evenements;
     }

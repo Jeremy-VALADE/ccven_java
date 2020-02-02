@@ -14,7 +14,7 @@ import modele.Main;
  *
  * @author jerev
  */
-public class Connection {
+public class Connection2 {
 
     /**
      * @param args the command line arguments
