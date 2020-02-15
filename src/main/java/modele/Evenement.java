@@ -159,7 +159,7 @@ public class Evenement {
 
     @Override
     public String toString() {
-        return "Evenement{" + "num_even=" + num_even + ", intitule=" + intitule + ", theme=" + theme + ", description=" + description + ", duree=" + duree + ", nb_part_max=" + nb_part_max + ", date_debut=" + date_debut + ", organisateur=" + organisateur + ", type=" + type + ", participants=" + participants.toString() + '}';
+        return "Evenement{" + "num_even=" + num_even + ", intitule=" + intitule + ", theme=" + theme + ", description=" + description + ", duree=" + duree + ", nb_part_max=" + nb_part_max + ", date_debut=" + date_debut + ", organisateur=" + organisateur + ", type=" + type + ", participants=" +  '}';
     }
 
 }

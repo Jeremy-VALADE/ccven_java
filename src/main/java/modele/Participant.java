@@ -32,7 +32,7 @@ public class Participant {
     private String organisations;
     private String observations;
     
-  /*  @ManyToMany(
+   @ManyToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
@@ -40,9 +40,11 @@ public class Participant {
             joinColumns = {
                 @JoinColumn(name = "num_pers")},
             inverseJoinColumns = {
-                @JoinColumn(name = "num_even")})*/
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "participants")
-    private Set<Evenement> evenements;
+                @JoinColumn(name = "num_even")
+            }
+     )
+   // @ManyToMany(fetch = FetchType.EAGER,mappedBy = "participants")
+    private Set<Evenement> evenements =  new HashSet<Evenement>();
 
     public Participant() {
     }
@@ -57,14 +59,14 @@ public class Participant {
         this.evenements = evenements;
     }
 
-    public Participant(String nom, String prenom, String email, String organisations, String observations, Date date_naiss) {
+    public Participant(String nom, String prenom, String email, String organisations, String observations, Date date_naiss, Evenement even) {
          this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.date_naiss = date_naiss;
         this.organisations = organisations;
         this.observations = observations;
-        this.evenements = new HashSet<Evenement>();
+        this.evenements.add(even);
     }
     
     public void setEvenements(Evenement unEvenement){

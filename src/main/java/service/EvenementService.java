@@ -57,13 +57,12 @@ public class EvenementService {
         }
     }
 
-    public Evenement getAllEvenement() {
+    public Evenement getEvenement(String even) {
         Session session = this.sessionFactory.openSession();
-        Evenement evenements = (Evenement) session.get(Evenement.class,
-                1);
-        evenements.getNum_even();
+        Query evenements = session.createQuery("from Evenement where intitule = '" + even +"'");
+        Evenement evenement = (Evenement)evenements.getSingleResult();
         session.close();
-        return evenements;
+        return evenement;
     }
 
     public List<Evenement> getAllEvenements() {
