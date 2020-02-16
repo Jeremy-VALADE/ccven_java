@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -18,6 +19,7 @@ import modele.Organisateur;
 import modele.Type_Evenement;
 import org.hibernate.SessionFactory;
 import service.EvenementService;
+import service.TypeEvenementService;
 
 /**
  *
@@ -29,14 +31,22 @@ public class InsertEven extends javax.swing.JFrame {
      * Creates new form InsertEven
      */
     EvenementService evenService = null;
+    TypeEvenementService typeService = null;
     Organisateur organisateur = null;
     SessionFactory session = null;
-
+    
     public InsertEven(Organisateur organisateur, SessionFactory session) {
         this.organisateur = organisateur;
         this.session = session;
         evenService = new EvenementService(this.session);
+        typeService = new TypeEvenementService(this.session);
         initComponents();
+        
+        List<Type_Evenement> typeEven = typeService.getAllTypeEvenements();
+        
+        for (Type_Evenement x : typeEven) {
+            typeEvent.addItem(x.getIntitule());
+        }
         this.setVisible(true);
     }
 
@@ -49,12 +59,6 @@ public class InsertEven extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dateChooserPanel1 = new datechooser.beans.DateChooserPanel();
-        dateChooserDialog1 = new datechooser.beans.DateChooserDialog();
-        dateChooserDialog2 = new datechooser.beans.DateChooserDialog();
-        dateChooserDialog3 = new datechooser.beans.DateChooserDialog();
-        dateChooserDialog4 = new datechooser.beans.DateChooserDialog();
-        dateChooserDialog5 = new datechooser.beans.DateChooserDialog();
         envoyer = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         intitule = new javax.swing.JTextField();
@@ -71,7 +75,6 @@ public class InsertEven extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         t = new javax.swing.JLabel();
         typeEvent = new javax.swing.JComboBox<>();
-        date_debut = new datechooser.beans.DateChooserCombo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,8 +102,6 @@ public class InsertEven extends javax.swing.JFrame {
         jLabel9.setText("jLabel1");
 
         t.setText("theme");
-
-        date_debut.setShowOneMonth(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,10 +145,7 @@ public class InsertEven extends javax.swing.JFrame {
                         .addComponent(jLabel6))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(418, 418, 418)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(364, 364, 364)
-                        .addComponent(date_debut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel5)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -180,9 +178,7 @@ public class InsertEven extends javax.swing.JFrame {
                 .addComponent(theme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(date_debut, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(16, 16, 16)
                 .addComponent(typeEvent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,14 +201,7 @@ public class InsertEven extends javax.swing.JFrame {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
         Date parsedDate;
         Timestamp timestamp = null;
-        try {
-            parsedDate = dateFormat.parse(date_debut.getText());
-            System.out.println(date_debut.getText());
-            timestamp = new java.sql.Timestamp(parsedDate.getTime());
-        } catch (ParseException ex) {
-            Logger.getLogger(InsertEven.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        
         evenService.insertEvenement(
                 new Evenement(
                         intitule.getText(),
@@ -222,7 +211,7 @@ public class InsertEven extends javax.swing.JFrame {
                         Integer.parseInt(nb_part_max.getText()),
                         timestamp,
                         organisateur,
-                        new Type_Evenement(typeEvent.getToolTipText())
+                        typeService.getTypeEvenement(typeEvent.getSelectedItem().toString())
                 )
         );
         /*JFileChooser chooser = new JFileChooser();
@@ -273,13 +262,6 @@ public class InsertEven extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private datechooser.beans.DateChooserDialog dateChooserDialog1;
-    private datechooser.beans.DateChooserDialog dateChooserDialog2;
-    private datechooser.beans.DateChooserDialog dateChooserDialog3;
-    private datechooser.beans.DateChooserDialog dateChooserDialog4;
-    private datechooser.beans.DateChooserDialog dateChooserDialog5;
-    private datechooser.beans.DateChooserPanel dateChooserPanel1;
-    private datechooser.beans.DateChooserCombo date_debut;
     private javax.swing.JTextField description;
     private javax.swing.JTextField duree;
     private javax.swing.JButton envoyer;

@@ -7,9 +7,11 @@ package service;
 
 import java.util.List;
 import java.util.Objects;
+import modele.Evenement;
 import modele.Type_Evenement;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -32,9 +34,19 @@ public class TypeEvenementService {
         session.close();
     }
     
-    public List<Type_Evenement> getAllEvenements() {
+    public Type_Evenement getTypeEvenement(String nom) {
+         Session session = this.sessionFactory.openSession();
+        Query evenements = session.createQuery("from Type_Evenement where intitule = '" + nom +"'");
+        Type_Evenement type = (Type_Evenement)evenements.getSingleResult();
+        session.close();
+        return type;
+    }
+    
+    
+    
+    public List<Type_Evenement> getAllTypeEvenements() {
         Session session = this.sessionFactory.openSession();
-        List<Type_Evenement> result = session.createQuery("from type_evenement").list();
+        List<Type_Evenement> result = session.createQuery("from Type_Evenement").list();
         session.close();
         return result;
     }
