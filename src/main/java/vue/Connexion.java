@@ -124,7 +124,8 @@ public class Connexion extends javax.swing.JFrame {
         {
             organisateur = new Organisateur(login.getText().toString(), password.getText().toString());
             dispose();
-            InsertEven even = new InsertEven(organisateur, session);
+            EvenementInfo info = new EvenementInfo(session);
+            //InsertEven even = new InsertEven(organisateur, session);
             //InsertParticipant participant = new InsertParticipant(session);
         } 
         else {            
