@@ -29,6 +29,8 @@ public class EvenementInfo extends javax.swing.JFrame {
     }
     
     public void initialiseTable() {
+        evenementInfo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF );
+
          List<Evenement> evenements = e.getAllEvenements();
         String[] entetes =  {"Intitle", "Date début", "Description", "Duree", "Organisateur" ,"Theme", "Type", "Nombre de participants"};
         Object[][] donnees = new Object[evenements.size()][9];
@@ -37,9 +39,9 @@ public class EvenementInfo extends javax.swing.JFrame {
             donnees[i][1] = evenements.get(i).getDate_debut();
             donnees[i][2] = evenements.get(i).getDescription();
             donnees[i][3] = evenements.get(i).getDuree();
-            donnees[i][4] = evenements.get(i).getOrganisateur();
+            donnees[i][4] = evenements.get(i).getOrganisateur().getLogin();
             donnees[i][5] = evenements.get(i).getTheme();
-            donnees[i][6] = evenements.get(i).getType();
+            donnees[i][6] = evenements.get(i).getType().getIntitule();
             donnees[i][7] = evenements.get(i).getNb_part_max();            
         }
 

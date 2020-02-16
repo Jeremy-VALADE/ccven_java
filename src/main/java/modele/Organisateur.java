@@ -23,7 +23,5 @@ public class Organisateur {
 
     public String getPassword() {
         return password;
-    }
-    
-    
+    }    
 }
