@@ -214,16 +214,7 @@ public class InsertEven extends javax.swing.JFrame {
                         typeService.getTypeEvenement(typeEvent.getSelectedItem().toString())
                 )
         );
-        /*JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "JPG & GIF Images", "jpg", "gif");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(chooser.getParent());
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            System.out.println("You chose to open this file: "
-                    + chooser.getSelectedFile().getName());
-        }    */
-
+     
     }//GEN-LAST:event_envoyerActionPerformed
 
     /**

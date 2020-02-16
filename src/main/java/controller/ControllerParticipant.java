@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controler;
-
-import modele.Evenement;
+package controller;
 
 /**
  *
  * @author jerev
  */
-public class ControlerEvenement {
+public class ControllerParticipant {
     
-    public void addEvenement(Evenement even) {
-        
-    }
 }
