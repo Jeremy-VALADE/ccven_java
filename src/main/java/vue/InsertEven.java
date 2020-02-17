@@ -25,7 +25,7 @@ import service.TypeEvenementService;
  *
  * @author jerev
  */
-public class InsertEven extends javax.swing.JFrame {
+public class InsertEven extends Menu {
 
     /**
      * Creates new form InsertEven
@@ -35,8 +35,9 @@ public class InsertEven extends javax.swing.JFrame {
     Organisateur organisateur = null;
     SessionFactory session = null;
     
-    public InsertEven(Organisateur organisateur, SessionFactory session) {
-        this.organisateur = organisateur;
+    public InsertEven(SessionFactory session) {
+        super(session);
+        this.organisateur = Connexion.organisateur;
         this.session = session;
         evenService = new EvenementService(this.session);
         typeService = new TypeEvenementService(this.session);

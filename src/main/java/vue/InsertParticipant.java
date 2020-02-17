@@ -25,15 +25,21 @@ import service.ParticipantService;
  *
  * @author jerev
  */
-public class InsertParticipant extends javax.swing.JFrame {
+public class InsertParticipant extends Menu {
 
     /**
      * Creates new form insertParticipant
      */
     ParticipantService p = null;
     EvenementService e = null;
+    SessionFactory session = null;
 
+    /**
+     *
+     * @param session
+     */
     public InsertParticipant(SessionFactory session) {
+        super(session);
         p = new ParticipantService(session);
         e = new EvenementService(session);
         initComponents();
@@ -254,17 +260,6 @@ public class InsertParticipant extends javax.swing.JFrame {
                         e.getEvenement(evenement.getSelectedItem().toString())
                 )
         );
-        /*JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "JPG & GIF Images", "jpg", "gif");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(chooser.getParent());
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            System.out.println("You chose to open this file: "
-                    + chooser.getSelectedFile().getName());
-        }
-         */
-
     }//GEN-LAST:event_envoyerActionPerformed
 
     private void fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileActionPerformed

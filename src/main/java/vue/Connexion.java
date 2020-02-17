@@ -20,7 +20,7 @@ public class Connexion extends javax.swing.JFrame {
      * Creates new form Connexion
      */
     private OrganisateurService serviceOrganisateur = null;
-    private Organisateur organisateur = null;
+    static Organisateur organisateur = null;
     SessionFactory session = null;
 
     public Connexion() {
