@@ -31,7 +31,9 @@ public class Menu extends javax.swing.JFrame {
     public Menu(SessionFactory session) {
         initComponents();
         this.setLocationRelativeTo(null);
-
+       // this.setResizable(false);
+       
+        
         //On initialise nos menus      
         this.insertion.add(insertParticipant);
         this.insertion.addActionListener(new ActionListener() {
