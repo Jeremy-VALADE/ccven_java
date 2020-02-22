@@ -35,15 +35,10 @@ public class OrganisateurService {
         session.close();
     }
 
-    public boolean getPassword(String login, String password) {
+    public Organisateur getPassword(String login, String password) {
         Session session = this.sessionFactory.openSession();
-        Query passwordLogin = session.createQuery("select password from Organisateur where login = :login");
+        Query passwordLogin = session.createQuery("from Organisateur where login = :login");
         passwordLogin.setString("login", login);
-        //return (Organisateur)passwordLogin.uniqueResult();
-        if (password.equals((String) passwordLogin.uniqueResult()))            
-            return true;
-        else {
-            return false;
-        }
+        return (Organisateur)passwordLogin.uniqueResult();
     }
 }

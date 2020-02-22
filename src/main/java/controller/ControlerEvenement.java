@@ -5,15 +5,28 @@
  */
 package controller;
 
-import modele.Evenement;
+import modele.Organisateur;
+import service.EvenementService;
+import service.TypeEvenementService;
+import org.hibernate.SessionFactory;
 
 /**
  *
  * @author jerev
  */
 public class ControlerEvenement {
-    
-    public void addEvenement(Evenement even) {
+
+    private EvenementService serviceEvenement = null;
+    private TypeEvenementService serviceTyeEvenement = null;
+    private Organisateur organisateur = null;
+
+    public ControlerEvenement(SessionFactory session) {
+        this.serviceEvenement = new EvenementService(session);
+        this.serviceTyeEvenement = new TypeEvenementService(session);
+        this.organisateur = ControllerOrganisateur.organisateur;
+    }
+
+    public void addEvenement() {
         
     }
 }

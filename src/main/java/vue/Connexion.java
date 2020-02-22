@@ -5,10 +5,9 @@
  */
 package vue;
 
+import controller.ControllerOrganisateur;
 import javax.swing.JOptionPane;
-import modele.Organisateur;
 import org.hibernate.SessionFactory;
-import service.OrganisateurService;
 
 /**
  *
@@ -19,14 +18,13 @@ public class Connexion extends javax.swing.JFrame {
     /**
      * Creates new form Connexion
      */
-    private OrganisateurService serviceOrganisateur = null;
-    static Organisateur organisateur = null;
+    private ControllerOrganisateur controller = null;
     SessionFactory session = null;
 
     public Connexion() {
-        this.setTitle("Cven Connexion");              
+        this.setTitle("Cven Connexion");
         session = outils.SessionFactory.createSessionFactory();
-        serviceOrganisateur = new OrganisateurService(session);
+        controller = new ControllerOrganisateur(session);
         initComponents();
     }
 
@@ -119,19 +117,10 @@ public class Connexion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void connexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connexionActionPerformed
-        if (serviceOrganisateur.getPassword(login.getText().toString(), password.getText().toString()))
-        {
-            organisateur = new Organisateur(login.getText().toString(), password.getText().toString());
-            dispose();
-            //EvenementInfo info = new EvenementInfo(session);
-            //InsertEven even = new InsertEven(organisateur, session);
-            InsertParticipant participant = new InsertParticipant(session);
-        } 
-        else {            
+        if (!controller.connection(login.getText(), password.getText())) {
             JOptionPane d = new JOptionPane();
-            d.showMessageDialog(this, "Login ou mot de passe incorrect", "Message", JOptionPane.PLAIN_MESSAGE);
+            d.showMessageDialog(this, "Saisir tous les champs", "Message", JOptionPane.PLAIN_MESSAGE);
         }
-
     }//GEN-LAST:event_connexionActionPerformed
 
     private void fermerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fermerActionPerformed

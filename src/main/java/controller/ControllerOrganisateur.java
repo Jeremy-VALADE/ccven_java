@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controler;
+package controller;
 
+import javax.swing.JOptionPane;
 import modele.Organisateur;
+import org.hibernate.SessionFactory;
 import service.OrganisateurService;
+import vue.Connexion;
 
 /**
  *
@@ -14,15 +17,23 @@ import service.OrganisateurService;
  */
 public class ControllerOrganisateur {
 
+    private OrganisateurService serviceOrganisateur = null;
     public static Organisateur organisateur = null;
-    private OrganisateurService service = null;
 
-    public ControllerOrganisateur(OrganisateurService service) {
-        this.service = service;
+    public ControllerOrganisateur(SessionFactory session) {
+        this.serviceOrganisateur = new OrganisateurService(session);
     }
 
-    public boolean connection(String login, String password) {
-        return true;
+    public boolean connection(String login, String password) {       
+        if (login.isEmpty() || password.isEmpty()) {
+            return false;
+        }
+        organisateur = serviceOrganisateur.getPassword(login, password);
+        if (organisateur != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
